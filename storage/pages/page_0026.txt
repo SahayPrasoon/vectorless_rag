@@ -1,0 +1,60 @@
+investor s grew rapidly . While risks associated with private credit from in vestor redemption and
+leverage appeared limited, the sector remains opaque, making it difficult to assess vulnerabilities.
+In the household sector , household debt relative to GDP declined in 2023. Mor tgage debt
+accounts for roughly two-thirds of total household debt, with ne w mor tgage extensions sk ewed
+toward prime bor rowers in recent year s. Most of the remaining one-third of household debt is
+consumer credit, which consists primarily of student loans, auto loans, and credit card debt.
+Although the strength of households’ balance sheets held up through 2023, credit card and auto
+delinquency rates increased slightly . This increase w as lik ely due to the unwinding of pandemic
+suppor t programs rather than a significant deterioration in lending standards, which remain con-
+servative. Student loan delinquencies w ere held down b y pandemic-related debt relief. Although
+the extended pandemic forbearance has ended, the ne w forgiveness plan of a 12-month “on
+ramp” to repa yment and the ne w Saving on a V aluable Education plan could temper rising future
+delinquencies.
+Leverage in the F inancial System
+The banking sector remained sound and resil-
+ient o verall in 2023. Bank r uns at Silicon
+Valley Bank (SVB) and other banks in
+March 2023 show ed that the interaction of
+fair value losses on bank balance sheets and
+fragile funding str uctures could amplify a
+shock. The use of a systemic risk exception
+and the Bank T erm Funding Program (BTFP)
+helped mitigate these vulnerabilities and
+stopped the contagion from bank r uns at SVB
+in March 2023. Common equity tier 1 ratios—
+regulator y risk-based measures of bank
+capital adequacy—at the largest banks w ere
+near or abo ve the top quar tile of their range
+throughout the past decade ( figure 3.5 ). None-
+theless, fair value losses on fixed-income
+assets remain sizable at some banks, and
+there is the potential for w eakening loan per-
+formance associated with CRE lending to
+emerge at some lender s. The largest banks
+appear most resilient to these potential risks.
+Some smaller banks with less diver sified por t-
+folios ma y face greater challenges.Figure 3.5. Common equity tier 1 ratio of
+banks, 2001–23
+G-SIBs
+Large non–G-SIBs 
+Other BHCs 
+2002 2005 2008 2011 2014 2017 2020 20230246810 12 14 Q4 Quarterly Percent of risk-weighted assets 
+Note: The data are seasonally adjusted b y Federal
+Reser ve Board staff. Before 2014:Q1, the numerator
+of the common equity tier 1 ratio is tier 1 common
+capital for advanced-approaches bank holding compa-
+nies (BHCs) and inter mediate holding companies
+(IHCs) (before 2015:Q1, for non-advanced-approaches
+BHCs). Afterw ard, the numerator is common equity
+tier 1 capital. The denominator is risk-w eighted
+assets. G-SIBs are global systemically impor tant U.S.
+banks. Large non–G-SIBs are BHCs and IHCs with
+greater than $100 billion in total assets that are not
+G-SIBs. The shaded bar s with top caps indicate
+periods of business recession as defined b y the
+National Bureau of Economic Research: March 2001
+to No vember 2001, December 2007 to June 2009,
+and F ebruary 2020 to April 2020.
+Source: F ederal Reser ve Board, Form FR Y-9C, Consoli-
+dated F inancial Statements for Holding Companies.20 110th Annual Repor t | 2023

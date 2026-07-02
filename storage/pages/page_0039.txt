@@ -1,0 +1,36 @@
+In June 2023, the Board, the FDIC, and the OCC issued the Interagency Guidance on Third-P arty
+Relationships: Risk Management that describes principles and considerations for banking organi-
+zations’ risk management of third-par ty relationships, including k ey considerations for cyber secu-
+rity and operational risks associated with such relationships.
+In July 2023, staff from the Board and other federal banking agencies conducted an “ Ask the
+Regulator” session to highlight k ey aspects of the third-par ty risk-management guidance and its
+application to banks. In No vember 2023, Board staff conducted an “ Ask the F ed” session to
+address questions about the guidance from banks, including smaller banks.
+The F ederal Reser ve examined and monitored super vised institutions for operational risks as par t
+of its safety and soundness super vision:
+•In 2023, Federal Reser ve examiner s, in close coordination with the other federal banking agen-
+cies, conducted examinations of IT activities (inclusive of cyber risk-management activities) and
+targeted cyber security assessments of the large financial institutions, and ser vice pro viders.
+•Federal Reser ve examiner s also conducted tailored cyber security assessments at community
+and regional banking organizations.
+•Under the authority of the Bank Ser vice Compan y Act, the federal banking agencies examined
+technolog y service pro viders that pro vide ser vices for specific regulated financial
+institutions.
+The F ederal Reser ve collaborated with other financial regulator s, U.S T reasur y, and private industr y
+to promote effective safeguards against operational and cyber risks to the financial ser vices
+sector and its critical infrastr ucture. This included contributions to the F ederal F inancial Institu-
+tions Examination Council’ s (FFIEC’ s) IT Subcommittee and Cyber security and Critical Infrastr ucture
+Subcommittee, the Financial and Banking Infor mation Infrastr ucture Committee, the Cyber security
+Forum for Independent and Executive Branch Regulator , the Depar tment of Homeland Security’ s
+Cyber security and Infrastr ucture Security Agency Cyber Incident Repor ting Council, and Cyber Inci-
+dent Repor ting for Critical Infrastr ucture Act-related deliberations. The F ederal Reser ve, together
+with the other member s of the F inancial Banking Infor mation Infrastr ucture Committee (FBIIC) and
+the Financial Ser vices Sector Coordinating Council, collaborated on financial sector resilience ini-
+tiatives, including par ticipation in the Cloud Executive Steering Group.4
+The Board led or contributed to cyber security activities under taken by various inter national groups.
+Board staff continued to par ticipate in the wor k of the F inancial Stability Board (FSB) to address
+4See U.S. Depar tment of the T reasur y, “U.S. Depar tment of the T reasur y Kicks Off Public–Private Executive Steering
+Group to Address Cloud Repor t Recommendations, ” news release, May 25, 2023, https://home.treasur y.gov/news/
+press-releases/jy1503 . The F ederal Reser ve and other member s of the FBIIC contributed to a T reasur y repor t that
+assesses the oppor tunities and challenges the financial sector faces b y adopting cloud-based technologies, in which
+this wor king group w as first announced.Super vision and Regulation 33

@@ -1,0 +1,49 @@
+In tur n, financial stress among households and businesses can lead to mounting losses at finan-
+cial institutions, creating an adver se feedback loop in which w eaknesses among households, non-
+financial businesses, and financial institutions cause fur ther declines in income and accelerate
+financial losses, potentially leading to financial instability and a shar p contraction in economic
+activity .
+A commonly used measure of the financial
+position of households and businesses is the
+ratio of the combined total debt of nonfinan-
+cial businesses and households relative to
+gross domestic product (GDP). T otal debt
+declined o ver the year , even as nominal GDP
+continued to grow in 2023, leaving the credit-
+to-GDP ratio close to its low est le vel in
+20 year s (figure 3.4 ). This de velopment sug-
+gests that, in the aggregate, households and
+businesses do not appear to ha ve bor rowed
+excessively .
+Separate examination of business and house-
+hold bor rowing yields some additional
+insights. The gross le verage of large
+businesses—the ratio of debt to assets for all
+publicly traded nonfinancial fir ms—declined
+slightly but remained ele vated b y historical
+standards. Net le verage—the ratio of debt
+less cash to assets—show ed a similar trend.
+The ability of public fir ms to ser vice their debt, as measured b y the interest co verage ratio,
+remained high b y historical standards, in par t reflecting solid ear nings. The adver se effect of rising
+interest rates on the ability of businesses to ser vice their debt continued to be muted, as cor po-
+rate bonds—which account for the majority of the debt of public fir ms—generally ha ve fixed
+interest rates. Although businesses with floating-rate obligations experienced significant increases
+in interest expenses, earnings w ere sufficiently strong for most fir ms to handle these higher
+interest pa yments without stress.
+Business credit quality declined slightly in 2023. The volume of downgrades exceeded the volume
+of upgrades, and default rates slightly increased. Ne vertheless, both remained low b y historical
+standards. Direct lending to nonfinancial businesses b y private credit funds and other privateFigure 3.4. Private nonfinancial-sector
+credit-to-GDP ratio, 1985–2023
+1988 1995 2002 2009 2016 20230.81.11.41.72.0
+Q4 Quarterly Ratio 
+Note: The shaded bar s with top caps indicate periods
+of business recession as defined b y the National
+Bureau of Economic Research: July 1990 to
+March 1991, March 2001 to No vember 2001,
+December 2007 to June 2009, and F ebruary 2020 to
+April 2020. GDP is gross domestic product.
+Source: F ederal Reser ve Board staff calculations
+based on Bureau of Economic Analysis, national
+income and product accounts, and F ederal Reser ve
+Board, Statistical Release Z.1, “Financial Accounts of
+the United States. ”Financial Stability 19

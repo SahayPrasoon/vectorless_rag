@@ -1,0 +1,56 @@
+Specialized Examinations
+The F ederal Reser ve conducts specialized examinations of super vised financial institutions in the
+areas of capital planning and stress testing , information technolog y, fiduciar y activities, transfer
+agent activities, government and municipal securities dealing and brok ering, and cyber security and
+critical infrastr ucture. The F ederal Reser ve also conducts specialized examinations of cer tain non-
+bank entities that extend credit subject to the Board’ s margin regulations.
+Capital Planning and Stress T esting
+Since the 2007–09 financial crisis, the Federal Reser ve has instituted super visory stress testing
+to strengthen capital positions of the largest banking organizations. In March 2020, the Board
+integrated the super visory stress test with its non-stress capital requirements through the stress
+capital buffer to for m one forw ard-looking and risk-sensitive capital frame work.
+In June 2023, the Federal Reser ve conducted
+its annual stress test, which show ed that the
+large banking fir ms tested had sufficient
+levels of capital and could continue lending to
+households and businesses during a se vere
+recession. In July 2023, the Federal Reser ve
+announced the individual capital requirements
+for large banks, which include the stress
+capital buffer requirement based on the
+results of the 2023 stress test. These require-
+ments became effective as of
+October 1, 2023.
+For the fir st time, the Federal Reser ve also
+published an explorator y mar ket shock that
+applied only to U.S. global systemically impor-
+tant banks and posed a different set of risks
+than the global mar ket shock component.2
+Consistent with the nature of an explorator y
+exercise, the explorator y mar ket shock did not
+contribute to the capital requirements set b y
+the 2023 stress test. F or stress testing publications released in 2023, see box 4.3 .
+2The global mar ket shock applies to banks with large trading operations and stresses their trading , private equity , and
+certain other fair-valued positions. It consists of a set of h ypothetical shocks to a large set of risk factor s reflecting gen-
+eral mar ket distress and heightened uncer tainty . Banks with substantial trading or custodial operations are also tested
+against the default of their largest counter party.Box 4.3. Stress T esting
+Publications Released
+in 2023
+More details on the 2023 stress test sce-
+narios are a vailable at https://
+www.federalreser ve.go v/newsevents/
+pressreleases/files/bcreg20230209a1.pdf .
+More details on the 2023 stress test model
+methodologies are a vailable at https://
+www.federalreser ve.go v/publications/files/
+2023-june-super visory-stress-test-
+methodolog y.pdf.
+More details on the 2023 stress test results
+are available at https://
+www.federalreser ve.go v/publications/files/
+2023-dfast-results-20230628.pdf .
+More details on the stress capital buffer
+requirements published in 2023 are a vailable
+at https://www .federalreser ve.go v/
+publications/files/large-bank-capital-
+requirements-20230727.pdfSuper vision and Regulation 31

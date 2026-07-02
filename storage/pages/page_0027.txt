@@ -1,0 +1,53 @@
+Outside the banking sector , leverage at large life insurance companies in 2023 remained near the
+middle of its historical range and w ell below its pandemic peak. How ever, life insurance companies
+continued to increase the share of assets allocated to risk y instr uments, which lea ves their capital
+positions vulnerable to declines in the value of their in vestments. Based on a number of meas-
+ures, leverage at hedge funds during 2023 stabilized at an ele vated le vel as the T reasur y cash-
+futures basis trade continued to grow , suggesting a risk of sudden dele veraging if volatility in
+Treasur y mar kets increases unexpectedly .
+Funding Risk
+Overall, banks’ liquidity positions remained
+ample based on the risk of their funding str uc-
+tures. High-quality liquid assets held b y banks
+declined mildly in 2023, driven b y reductions
+in holdings of central bank reser ves and b y
+decreases in the mar ket values of securities
+as interest rates increased. Still, the le vels of
+high-quality liquid assets remained high b y his-
+torical standards ( figure 3.6 ). The BTFP w as
+created to mitigate funding vulnerabilities of
+banks amid the stresses of mid-March 2023
+and ended on March 11, 2024. A measure of
+the exposure of banks to interest rate risk—
+calculated as the difference betw een the
+timing of cash flows arising from bank assets
+and liabilities—declined o ver the year but
+remained w ell abo ve historical le vels.
+Outside the banking sector , assets under man-
+agement (AUM) of mone y mar ket funds
+(MMFs) continued to increase in 2023.
+Growth in prime MMFs lik ely reflects faster
+increases in their yields relative to the yields of other MMFs and deposit rates, as shor t-term
+interest rates ha ve risen. Combined AUM in other cash-management vehicles—such as offshore
+prime MMFs, short-term investment funds, private liquidity funds, and ultrashor t bond funds—
+continued to increase and remained at a historically high le vel. Rule changes for MMFs b y the
+Securities and Exchange Commission that w ent into effect in July 2023 represent refor ms to
+address the str uctural w eaknesses in this sector .Figure 3.6. Liquid assets held b y banks,
+2001–23
+G-SIBs
+Large non–G-SIBs 
+Other BHCs 
+2002 2005 2008 2011 2014 2017 2020 202304812 16 20 24 28 32 
+Q4 Quarterly Percent of assets 
+Note: Liquid assets are cash plus estimates of securi-
+ties that qualify as high-quality liquid assets as
+defined b y the liquidity co verage ratio requirement.
+Accordingly , Level 1 assets as w ell as discounts and
+restrictions on Le vel 2 assets are incor porated into
+the estimate. G-SIBs are global systemically impor tant
+U.S. banks. Large non–G-SIBs are bank holding com-
+panies (BHCs) and inter mediate holding companies
+with greater than $100 billion in total assets that are
+not G-SIBs.
+Source: F ederal Reser ve Board, Form FR Y-9C, Consoli-
+dated F inancial Statements for Holding Companies.Financial Stability 21
