@@ -9,6 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
+# Node dependencies
+node_modules/
 
 
 # environment variable files

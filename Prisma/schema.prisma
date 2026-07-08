@@ -1,0 +1,105 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Document {
+  id String @id @default(cuid())
+
+  title      String
+  sourceFile String
+  totalPages Int
+
+  pages   Page[]
+  figures Figure[]
+  tables  Table[]
+  tree    Tree?
+
+  createdAt DateTime @default(now())
+}
+
+model Page {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  pageNumber Int
+
+  metadata Json?
+
+  content String @db.Text
+
+  tokenCount Int?
+
+  figures Figure[]
+  tables  Table[]
+
+  createdAt DateTime @default(now())
+
+  @@unique([documentId, pageNumber])
+}
+
+model Figure {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  pageId String?
+  page   Page?   @relation(fields: [pageId], references: [id], onDelete: SetNull)
+
+  figureNumber String?
+
+  title       String?
+  caption     String?
+  description String?
+
+  imagePath String
+
+  bbox Json?
+
+  ocrText String? @db.Text
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+}
+
+model Table {
+  id String @id @default(cuid())
+
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  pageId String?
+  page   Page?   @relation(fields: [pageId], references: [id], onDelete: SetNull)
+
+  tableNumber String?
+
+  title   String?
+  caption String?
+
+  markdown String? @db.Text
+
+  metadata Json?
+
+  createdAt DateTime @default(now())
+}
+
+model Tree {
+  id String @id @default(cuid())
+
+  documentId String   @unique
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  version Int @default(1)
+
+  treeJson Json
+
+  createdAt DateTime @default(now())
+}
