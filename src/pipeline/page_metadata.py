@@ -1,12 +1,13 @@
 """
 src/pipeline/page_metadata.py
 ──────────────────────────────
-Batch LLM metadata generation for pages (title, summary, keywords, etc.).
+Batch LLM metadata generation for pages.
+
+IDs are integers (autoincrement).
 
 Public API
 ──────────
-  generate_and_store_metadata(document_id, conn, llm, batch_size) -> int
-    Returns the number of pages processed.
+  generate_and_store_metadata(db_document_id, conn, llm, batch_size) -> int
 """
 from __future__ import annotations
 
@@ -66,67 +67,56 @@ def _parse_llm_json(text: str):
 
 
 def _generate_batch(batch: list[tuple], llm: BaseChatModel) -> list[dict]:
-    """
-    batch: list of (id, pageNumber, content) tuples
-    Returns list of metadata dicts.
-    """
-    page_text_blocks = []
-    for _, page_number, content in batch:
-        page_text_blocks.append(f"Page Number: {page_number}\n\n{content}")
-
+    # batch: [(id, pageNumber, content), ...]
+    page_text_blocks = [
+        f"Page Number: {page_number}\n\n{content}"
+        for _, page_number, content in batch
+    ]
     prompt = PROMPT.format(pages="\n\n".join(page_text_blocks))
     response = llm.invoke(prompt)
     return _parse_llm_json(response.content)
 
 
 def generate_and_store_metadata(
-    document_id: str,
+    db_document_id: int,
     conn: psycopg.Connection,
     llm: BaseChatModel,
     batch_size: int = BATCH_SIZE,
 ) -> int:
-    """
-    Generate page metadata in batches and persist it to the pages table.
-
-    Returns the number of pages processed.
-    """
     with conn.cursor() as cur:
         cur.execute(
             """
             SELECT id, "pageNumber", content
-            FROM pages
+            FROM "Page"
             WHERE "documentId" = %s
+              AND metadata IS NULL
             ORDER BY "pageNumber"
             """,
-            (document_id,),
+            (db_document_id,),
         )
         pages = cur.fetchall()
 
     if not pages:
-        raise ValueError(f"No pages found for documentId={document_id!r}.")
+        # All pages already have metadata (e.g. re-ingest with no new pages)
+        logger.info("All pages already have metadata for documentId=%d — skipping.", db_document_id)
+        return 0
 
-    logger.info(
-        "Generating metadata for %d pages (batch_size=%d).", len(pages), batch_size
-    )
+    logger.info("Generating metadata for %d pages (batch=%d).", len(pages), batch_size)
 
     all_metadata: list[dict] = []
     for batch in _batches(list(pages), batch_size):
-        metadata = _generate_batch(batch, llm)
-        all_metadata.extend(metadata)
-        logger.debug(
-            "Processed pages %s-%s.",
-            batch[0][1], batch[-1][1],
-        )
+        all_metadata.extend(_generate_batch(batch, llm))
+        logger.debug("Processed pages %s–%s.", batch[0][1], batch[-1][1])
 
     with conn.cursor() as cur:
         for meta in all_metadata:
             cur.execute(
                 """
-                UPDATE pages
+                UPDATE "Page"
                 SET metadata = %s
                 WHERE "documentId" = %s AND "pageNumber" = %s
                 """,
-                (json.dumps(meta), document_id, meta["pageNumber"]),
+                (json.dumps(meta), db_document_id, meta["pageNumber"]),
             )
 
     conn.commit()
