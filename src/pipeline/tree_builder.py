@@ -2,7 +2,7 @@
 src/pipeline/tree_builder.py
 ─────────────────────────────
 Bottom-up tree construction pipeline (v2).
-IDs are integers (autoincrement) throughout.
+IDs are cuid strings (Prisma default) throughout.
 
 Build order
 ───────────
@@ -48,12 +48,12 @@ def _invoke_json(llm: BaseChatModel, prompt: str) -> Any:
 
 # ── Step 0: fetch pages ───────────────────────────────────────────────────────
 
-def fetch_pages(conn: psycopg.Connection, db_document_id: int) -> list[dict]:
+def fetch_pages(conn: psycopg.Connection, db_document_id: str) -> list[dict]:
     with conn.cursor() as cur:
         cur.execute(
             """
             SELECT id, "pageNumber", content, metadata
-            FROM "Page"
+            FROM pages
             WHERE "documentId" = %s
             ORDER BY "pageNumber"
             """,
@@ -122,7 +122,7 @@ Rules:
 - Section titles must be descriptive (not "Section 1").
 - "summary" must be a 1-2 sentence summary MERGED from the page summaries in that section.
 - "keywords" must be a short deduplicated list merged from the pages' keywords.
-- pageIds must be the exact integer id values provided — do not invent new ones.
+- pageIds must be the exact string id values provided — do not invent new ones.
 
 Return ONLY valid JSON. No markdown, no explanation.
 
@@ -134,7 +134,7 @@ Schema:
     "keywords": ["..."],
     "pageStart": <int>,
     "pageEnd": <int>,
-    "pageIds": [<int>, ...]
+    "pageIds": ["<string>", ...]
   }}
 ]
 
@@ -311,12 +311,12 @@ def _enrich_and_validate(tree: dict, all_pages: list[dict]) -> dict:
 
 # ── DB persistence ────────────────────────────────────────────────────────────
 
-def upsert_tree(db_document_id: int, tree_dict: dict, conn: psycopg.Connection) -> int:
+def upsert_tree(db_document_id: str, tree_dict: dict, conn: psycopg.Connection) -> int:
     tree_json_str = json.dumps(tree_dict)
 
     with conn.cursor() as cur:
         cur.execute(
-            'SELECT id, version FROM "Tree" WHERE "documentId" = %s',
+            'SELECT id, version FROM trees WHERE "documentId" = %s',
             (db_document_id,),
         )
         existing = cur.fetchone()
@@ -325,14 +325,17 @@ def upsert_tree(db_document_id: int, tree_dict: dict, conn: psycopg.Connection) 
             tree_id, current_version = existing
             new_version = current_version + 1
             cur.execute(
-                'UPDATE "Tree" SET "treeJson" = %s, version = %s WHERE id = %s',
+                'UPDATE trees SET "treeJson" = %s, version = %s, "updatedAt" = NOW() WHERE id = %s',
                 (tree_json_str, new_version, tree_id),
             )
             logger.info("Tree updated for doc %s — version %d.", db_document_id, new_version)
         else:
             new_version = 1
             cur.execute(
-                'INSERT INTO "Tree" ("documentId", "treeJson", version) VALUES (%s, %s, 1)',
+                """
+                INSERT INTO trees (id, "documentId", "treeJson", version, "createdAt", "updatedAt")
+                VALUES (gen_random_uuid()::text, %s, %s, 1, NOW(), NOW())
+                """,
                 (db_document_id, tree_json_str),
             )
             logger.info("Tree inserted for doc %s.", db_document_id)
@@ -343,13 +346,13 @@ def upsert_tree(db_document_id: int, tree_dict: dict, conn: psycopg.Connection) 
 
 # ── Orchestrator ──────────────────────────────────────────────────────────────
 
-def build_tree(db_document_id: int, conn: psycopg.Connection, llm: BaseChatModel) -> dict:
+def build_tree(db_document_id: str, conn: psycopg.Connection, llm: BaseChatModel) -> dict:
     pages = fetch_pages(conn, db_document_id)
     if not pages:
         raise ValueError(f"No pages found for documentId={db_document_id}.")
 
     with conn.cursor() as cur:
-        cur.execute('SELECT title FROM "Document" WHERE id = %s', (db_document_id,))
+        cur.execute('SELECT title FROM documents WHERE id = %s', (db_document_id,))
         doc_row = cur.fetchone()
     doc_title = doc_row[0] if doc_row else "Document"
 

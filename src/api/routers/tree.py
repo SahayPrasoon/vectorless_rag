@@ -8,7 +8,6 @@ GET  /companies/{slug}/documents/{document_id}/tree
 
 POST /companies/{slug}/documents/{document_id}/tree/build
      — trigger (re)build of the tree from scratch
-       (runs: page_metadata → tree_builder in one request)
 """
 from __future__ import annotations
 
@@ -79,9 +78,12 @@ def get_tree(slug: str, document_id: str):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT id, "documentId", version, "treeJson", "createdAt"
-                FROM trees
-                WHERE "documentId" = %s
+                SELECT t.id, t."documentId", t.version, t."treeJson", t."createdAt",
+                       d."sourceFile", c.slug
+                FROM trees t
+                JOIN documents d ON d.id = t."documentId"
+                JOIN companies c ON c.id = d."companyId"
+                WHERE t."documentId" = %s
                 """,
                 (document_id,),
             )
@@ -96,12 +98,14 @@ def get_tree(slug: str, document_id: str):
             ),
         )
 
-    tree_id, doc_id, version, tree_json, created_at = row
+    tree_id, doc_id, version, tree_json, created_at, source_file, tenant_slug = row
     if isinstance(tree_json, str):
         tree_json = json.loads(tree_json)
 
     tree_out = TreeOut(
-        documentId=doc_id,
+        tenant_id=tenant_slug,
+        document_id=source_file,
+        db_document_id=doc_id,
         version=version,
         createdAt=created_at,
         tree=TreeNodeOut(**_tree_node_out(tree_json)),
@@ -121,8 +125,6 @@ def build_document_tree(slug: str, document_id: str):
       1. generate_and_store_metadata()  — LLM batch calls
       2. build_tree()                   — chapter / section / root summary
       3. upsert_tree()                  — persist to DB
-
-    Use this to rebuild an existing tree without re-uploading the PDF.
     """
     with get_conn() as conn:
         _assert_company_owns_doc(slug, document_id, conn)
@@ -130,14 +132,10 @@ def build_document_tree(slug: str, document_id: str):
         logger.info("Rebuilding tree for doc %s (company slug=%s).", document_id, slug)
 
         try:
-            # Step 1: page metadata
             page_count = generate_and_store_metadata(document_id, conn, llm)
             logger.info("Page metadata done: %d pages.", page_count)
 
-            # Step 2: build tree
             tree_dict = build_tree(document_id, conn, llm)
-
-            # Step 3: persist
             version = upsert_tree(document_id, tree_dict, conn)
 
         except ValueError as exc:

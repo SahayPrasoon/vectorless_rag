@@ -30,12 +30,11 @@ class ErrorResponse(BaseModel):
 
 
 # ── Ingest ───────────────────────────────────────────────────────────────────
-# (request fields come from multipart Form, not JSON body — see router)
 
 class IngestOut(BaseModel):
     tenant_id: str
-    document_id: str         # the caller-supplied logical document_id (= sourceFile key)
-    db_document_id: int      # the auto-increment PK in the Document table
+    document_id: str         # caller-supplied logical document_id (= sourceFile key)
+    db_document_id: str      # cuid string PK from the documents table
     title: str
     total_pages: int
     tree_version: int
@@ -70,7 +69,7 @@ class QueryOut(BaseModel):
     question: str
     answer: str
     sources: list[int]
-    document_searched: str       # logical document_id that was queried
+    document_searched: str
     tree_path: list[TreePathNodeOut]
     latency_seconds: float
     llm_calls: int = 1
@@ -88,7 +87,7 @@ class TreeNodeOut(BaseModel):
     pageStart: int | None = None
     pageEnd: int | None = None
     pageCount: int | None = None
-    pageIds: list[int] = []
+    pageIds: list[str] = []      # cuid strings, not ints
     children: list["TreeNodeOut"] = []
 
     class Config:
@@ -100,8 +99,8 @@ TreeNodeOut.model_rebuild()
 
 class TreeOut(BaseModel):
     tenant_id: str
-    document_id: str       # logical
-    db_document_id: int
+    document_id: str        # logical sourceFile key
+    db_document_id: str     # cuid string PK
     version: int
     createdAt: datetime
     tree: TreeNodeOut

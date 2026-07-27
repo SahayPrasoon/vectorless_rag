@@ -3,7 +3,7 @@ src/pipeline/page_metadata.py
 ──────────────────────────────
 Batch LLM metadata generation for pages.
 
-IDs are integers (autoincrement).
+IDs are cuid strings (Prisma default).
 
 Public API
 ──────────
@@ -78,7 +78,7 @@ def _generate_batch(batch: list[tuple], llm: BaseChatModel) -> list[dict]:
 
 
 def generate_and_store_metadata(
-    db_document_id: int,
+    db_document_id: str,
     conn: psycopg.Connection,
     llm: BaseChatModel,
     batch_size: int = BATCH_SIZE,
@@ -87,7 +87,7 @@ def generate_and_store_metadata(
         cur.execute(
             """
             SELECT id, "pageNumber", content
-            FROM "Page"
+            FROM pages
             WHERE "documentId" = %s
               AND metadata IS NULL
             ORDER BY "pageNumber"
@@ -97,8 +97,7 @@ def generate_and_store_metadata(
         pages = cur.fetchall()
 
     if not pages:
-        # All pages already have metadata (e.g. re-ingest with no new pages)
-        logger.info("All pages already have metadata for documentId=%d — skipping.", db_document_id)
+        logger.info("All pages already have metadata for documentId=%s — skipping.", db_document_id)
         return 0
 
     logger.info("Generating metadata for %d pages (batch=%d).", len(pages), batch_size)
@@ -112,8 +111,8 @@ def generate_and_store_metadata(
         for meta in all_metadata:
             cur.execute(
                 """
-                UPDATE "Page"
-                SET metadata = %s
+                UPDATE pages
+                SET metadata = %s, "updatedAt" = NOW()
                 WHERE "documentId" = %s AND "pageNumber" = %s
                 """,
                 (json.dumps(meta), db_document_id, meta["pageNumber"]),

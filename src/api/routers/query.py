@@ -17,7 +17,6 @@ and answers from the highest-matching one. Still 1 LLM call total.
 from __future__ import annotations
 
 import logging
-import time
 
 from fastapi import APIRouter, HTTPException, status
 
@@ -41,21 +40,21 @@ router = APIRouter(prefix="/query", tags=["Query"])
 
 # ── DB helpers ────────────────────────────────────────────────────────────────
 
-def _get_company_id(tenant_id: str, conn) -> int | None:
+def _get_company_id(tenant_id: str, conn) -> str | None:
     with conn.cursor() as cur:
-        cur.execute('SELECT id FROM "Company" WHERE slug = %s', (tenant_id,))
+        cur.execute('SELECT id FROM companies WHERE slug = %s', (tenant_id,))
         row = cur.fetchone()
     return row[0] if row else None
 
 
-def _get_all_docs_for_tenant(company_id: int, conn) -> list[dict]:
+def _get_all_docs_for_tenant(company_id: str, conn) -> list[dict]:
     """Return [{id, sourceFile}, ...] only for documents that have a tree."""
     with conn.cursor() as cur:
         cur.execute(
             """
             SELECT d.id, d."sourceFile"
-            FROM "Document" d
-            JOIN "Tree" t ON t."documentId" = d.id
+            FROM documents d
+            JOIN trees t ON t."documentId" = d.id
             WHERE d."companyId" = %s
             ORDER BY d.id
             """,
@@ -65,13 +64,13 @@ def _get_all_docs_for_tenant(company_id: int, conn) -> list[dict]:
     return [{"id": r[0], "sourceFile": r[1]} for r in rows]
 
 
-def _get_doc_by_logical_id(company_id: int, document_id: str, conn) -> dict | None:
+def _get_doc_by_logical_id(company_id: str, document_id: str, conn) -> dict | None:
     with conn.cursor() as cur:
         cur.execute(
             """
             SELECT d.id, d."sourceFile"
-            FROM "Document" d
-            JOIN "Tree" t ON t."documentId" = d.id
+            FROM documents d
+            JOIN trees t ON t."documentId" = d.id
             WHERE d."companyId" = %s AND d."sourceFile" = %s
             """,
             (company_id, document_id),
@@ -161,7 +160,6 @@ def search(body: QueryRequest):
         body.question[:80], body.top_k,
     )
 
-    # Safe defaults — prevents UnboundLocalError if an unexpected branch is hit
     result: AnswerResult | None = None
     matched_doc_logical: str = ""
 
@@ -203,7 +201,6 @@ def search(body: QueryRequest):
         # ── 3 + 4. retrieval + answer generation ──────────────────────────────
         try:
             if len(docs_to_search) == 1:
-                # ── single-document fast path ─────────────────────────────────
                 matched_doc_logical = docs_to_search[0]["sourceFile"]
                 result = answer_query(
                     query=body.question,
@@ -213,7 +210,6 @@ def search(body: QueryRequest):
                     top_k=body.top_k,
                 )
             else:
-                # ── multi-document: score all trees, pick best ────────────────
                 best_doc, retrieval = _best_retrieval_across_docs(
                     body.question, docs_to_search, conn, body.top_k,
                 )
@@ -237,7 +233,6 @@ def search(body: QueryRequest):
                 detail=f"Query failed: {exc}",
             ) from exc
 
-    # result is always set if no exception was raised above
     out = QueryOut(
         tenant_id=body.tenant_id,
         user_id=body.user_id,

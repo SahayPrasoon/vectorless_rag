@@ -3,11 +3,11 @@ src/pipeline/retrieval.py
 ─────────────────────────
 Zero-LLM retrieval pipeline (keyword-overlap routing).
 
-IDs are now integers (autoincrement) everywhere.
+IDs are cuid strings (Prisma default) everywhere.
 
 Public API
 ──────────
-  load_tree_from_db(conn, db_document_id: int) -> TreeNode
+  load_tree_from_db(conn, db_document_id: str) -> TreeNode
   retrieve(query, db_document_id, conn, top_k)  -> RetrievalResult
 """
 from __future__ import annotations
@@ -56,10 +56,10 @@ def build_tree_nodes(tree_dict: dict, parent: TreeNode | None = None) -> TreeNod
 
 # ── DB helpers ────────────────────────────────────────────────────────────────
 
-def load_tree_from_db(conn: psycopg.Connection, db_document_id: int) -> TreeNode:
+def load_tree_from_db(conn: psycopg.Connection, db_document_id: str) -> TreeNode:
     with conn.cursor() as cur:
         cur.execute(
-            'SELECT "treeJson" FROM "Tree" WHERE "documentId" = %s',
+            'SELECT "treeJson" FROM trees WHERE "documentId" = %s',
             (db_document_id,),
         )
         row = cur.fetchone()
@@ -125,7 +125,7 @@ def get_candidate_pages(conn: psycopg.Connection, leaf: TreeNode) -> list[dict]:
         cur.execute(
             f"""
             SELECT "pageNumber", metadata
-            FROM "Page"
+            FROM pages
             WHERE id IN ({placeholders})
             ORDER BY "pageNumber"
             """,
@@ -147,7 +147,7 @@ def get_candidate_pages(conn: psycopg.Connection, leaf: TreeNode) -> list[dict]:
 
 def fetch_pages_content(
     conn: psycopg.Connection,
-    db_document_id: int,
+    db_document_id: str,
     page_numbers: list[int],
 ) -> dict[int, str]:
     if not page_numbers:
@@ -158,7 +158,7 @@ def fetch_pages_content(
         cur.execute(
             f"""
             SELECT "pageNumber", content
-            FROM "Page"
+            FROM pages
             WHERE "documentId" = %s
               AND "pageNumber" IN ({placeholders})
             ORDER BY "pageNumber"
@@ -185,7 +185,7 @@ class RetrievalResult:
 
 def retrieve(
     query: str,
-    db_document_id: int,
+    db_document_id: str,
     conn: psycopg.Connection,
     top_k: int = 5,
 ) -> RetrievalResult:
