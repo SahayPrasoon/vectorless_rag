@@ -19,7 +19,7 @@ from langchain_core.language_models import BaseChatModel
 
 logger = logging.getLogger(__name__)
 
-BATCH_SIZE = 5
+BATCH_SIZE = 10
 
 PROMPT = """\
 You are building page metadata for a Vectorless RAG indexing system.
